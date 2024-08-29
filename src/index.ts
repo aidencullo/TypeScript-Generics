@@ -34,7 +34,7 @@ class Entity<T> {
 
 // We can then create instances of the class
 // with any type we desire, even complex types.
-const someEntity = new Entity<{ name: String }>({ name: "Static" });
+const someEntity = new Entity<SpecialType>({ name: "John" });
 
 // Because the class exposes its typing to TypeScript,
 // we can use these generics in conjunction with
@@ -42,8 +42,8 @@ const someEntity = new Entity<{ name: String }>({ name: "Static" });
 
 type SpecialType = { name: String };
 
-function someAction(val: SpecialType | number) {
-  console.log(val);
+function someAction(val: SpecialType) {
+  console.log(val.name);
 }
 
 someAction(someEntity.get());
@@ -52,10 +52,16 @@ someAction(someEntity.get());
 // entity into this type-restricted function,
 // TypeScript will provide an error.
 const numEntity = new Entity<number>(42);
-someAction(numEntity.get());
+// throws an error
+// someAction(numEntity.get());
 
 // This feedback can be provided because our generics
 // have left a "trail" of type information for the
 // compiler to follow. Even though Entity.get() *can*
 // hold anything, TypeScript knows what each instance
 // *does* hold.
+
+const map1 = new Map<Array<string>, number>();
+const arr1 = new Array<Map<string, number>>();
+
+const mapEntity = new Entity<Map<Array<string>, number>>(map1);
