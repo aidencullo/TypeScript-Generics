@@ -5,7 +5,7 @@ const numArray = new Array<number>(1, 2, 3, 4, 5);
 
 // Note that attempting to push a non-number value
 // results in TypeScript showing an error.
-numArray.push("String");
+numArray.push(6);
 
 // Map also supports generics by default, allowing
 // the creation of more complex data structures.
@@ -15,7 +15,7 @@ ratingMap.set("Shrek", 9.5);
 
 // Attempting an incorrect addition will result
 // in a TypeScript error, just like with arrays.
-ratingMap.set("Bee Movie", "B");
+ratingMap.set("Bee Movie", 10.5);
 
 // We can also create our own classes with generics.
 // This is a very simple example.
@@ -39,8 +39,11 @@ const someEntity = new Entity<{ name: String }>({ name: "Static" });
 // Because the class exposes its typing to TypeScript,
 // we can use these generics in conjunction with
 // other expressions and functions.
-function someAction(val: { name: String }) {
-  console.log(val.name);
+
+type SpecialType = { name: String };
+
+function someAction(val: SpecialType | number) {
+  console.log(val);
 }
 
 someAction(someEntity.get());
